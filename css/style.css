@@ -1,0 +1,355 @@
+/* ===== 全局 ===== */
+
+        body {
+            margin: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background: #0c1e3a;
+            color: gold;
+            text-align: center;
+        }
+
+        input, select, textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: none;
+        }
+
+        button {
+            background: gold;
+            color: #0c1e3a;
+            border: none;
+            padding: 12px 25px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* ===== 封面页 ===== */
+        .cover-page {
+            background: #000;
+            /* 配合viewport-fit=cover，避免内容被系统栏遮挡 */
+            padding-bottom: constant(safe-area-inset-bottom);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .cover-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            height: 100svh;
+            overflow: hidden;
+            /* 确保容器占满全屏（包括刘海区域） */
+            min-height: -webkit-fill-available;
+        }
+
+        .cover-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("images/cover.jpg"); /* 替换为你的背景图 */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: #000;
+            z-index: 1;
+        }
+
+        .cover-buttons {
+            position: absolute;
+            /* 调整底部距离，结合安全区域，避免被小黑条遮挡 */
+            bottom: calc(14% + constant(safe-area-inset-bottom));
+            bottom: calc(14% + env(safe-area-inset-bottom));
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            z-index: 2;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .btn-img {
+            width: calc(50% - 12.5px);
+            max-width: 150px;
+            min-width: 80px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-img:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 320px) {
+            .cover-buttons {
+                gap: 15px;
+            }
+        }
+/* ===== 顶部导航 ===== */
+
+.top-nav {
+    position: absolute;
+    right:20px;
+    top: 0;
+    width: 100%;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.nav-btn {
+    background: linear-gradient(145deg, #f5c76b, #e0a800);
+    color: #0c1e3a;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.back-link {
+    font-size: 13px;
+    color: #e6c27a;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+.back-link:hover {
+    opacity: 1;
+}
+
+/* ===== 表单页背景 ===== */
+
+        .archive-body {
+            font-family: "Microsoft YaHei", serif;
+            /* 背景图：保留全屏适配，不强制高度 */
+            background: url("../images/bg.jpg") no-repeat center center;
+            background-size:100% 100%;
+            background-attachment: fixed; /* 滚动时背景固定，视觉更完整 */
+            /* 修复：取消100vh强制高度，改用min-height + 内边距，允许滚动 */
+            min-height: 100vh;
+            padding: 20px 0; /* 上下内边距，避免内容贴边，解决“不完整” */
+            display: flex;
+            justify-content: center;
+            /* 移除align-items: center，改用padding+margin实现居中，避免内容截断 */
+        }
+
+        /* 表单容器：解决边框显示+内容完整 */
+        .form-container {
+            width: 90%;
+            max-width: 500px;
+            /* 背景改为实色，避免半透遮挡边框 */
+            background: #fff;
+            padding: 25px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            /* 确保容器有最小高度，视觉更完整 */
+            min-height: 80vh;
+            /* 上下外边距，实现垂直居中+预留空间 */
+            margin: 20px auto;
+        }
+
+        /* 表单元素：确保边框清晰显示 */
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 10px;
+            margin: 12px 0;
+            border-radius: 6px;
+            /* 修复：加粗边框+明显颜色，确保能看见 */
+            border: 1px solid #999;
+            /* 聚焦时高亮边框，提升交互 */
+            outline: none;
+        }
+        /* 聚焦样式：强化边框显示 */
+        input:focus, select:focus, textarea:focus {
+            border-color: gold;
+            box-shadow: 0 0 5px rgba(255,215,0,0.3);
+        }
+
+        button {
+            width: 100%;
+            background: gold;
+            color: #0c1e3a;
+            border: none;
+            padding: 14px 0;
+            margin: 15px 0 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            /* 给按钮加边框，统一视觉 */
+            border: 1px solid #e6c200;
+        }
+        button:hover {
+            opacity: 0.9;
+            background: #f0c808;
+        }
+
+        /* 表单标题：优化间距 */
+        .form-title {
+            text-align: center;
+            color: #0c1e3a;
+            margin-bottom: 25px;
+            font-size: 18px;
+        }
+/* ===== 表单外框 ===== */
+
+.archive-wrapper {
+    max-width: 680px;
+    margin: 100px auto 80px auto;
+    padding: 40px 50px;
+    background: rgba(10, 25, 50, 0.75);
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+
+/* ===== 表单顶部 ===== */
+
+.archive-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.top-logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.archive-header h1 {
+    font-size: 20px;
+    color: #e6c27a;
+    letter-spacing: 2px;
+}
+
+/* ===== 表单结构 ===== */
+
+.archive-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-row label {
+    width: 100px;
+    color: #e6c27a;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.form-row input,
+.form-row select {
+    flex: 1;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+}
+/* 下拉列表展开后的选项颜色 */
+.form-row select option {
+    color: #000;
+    background: #fff;
+}
+/* ===== 上传区域（升级版） ===== */
+
+.photo-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+/* 上传按钮（缩小） */
+.upload-img-btn {
+    width: 95px;
+    height: auto;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.upload-img-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* 预览框（主视觉） */
+.photo-preview {
+    width: 120px;
+    height: 150px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(230,194,122,0.4);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #e6c27a;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+}
+
+/* ===== 提交按钮 ===== */
+
+.submit-btn{
+      display: block;
+    width: 240px;          /* 与图片同宽 */
+    margin: 30px auto;     /* 上下30px间距，水平居中 */  
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.submit-img-btn{
+    width: 240px;
+    height: auto;
+    display: block;
+    transition: 0.2s ease;
+}
+
+.submit-btn:hover .submit-img-btn{
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+/* ===== 生成页 ===== */
+
+
+/* ===== 先辈后人 ===== */
+.line-wrapper{
+    position:absolute;
+    top:420px;
+    width:100%;
+    text-align:center;
+}
+
+.line-text{
+    display:inline-block;
+    padding:8px 40px;   /* 控制线长度 */
+
+    border-top:1px solid #e4dabf;
+    border-bottom:1px solid #e4dabf;
+
+    color:#e4dabf;
+    font-size:22px;
+}

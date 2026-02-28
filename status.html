@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>档案状态</title>
+
+<style>
+body{
+    margin:0;
+    background:#0c1e3a;
+    font-family:"Microsoft YaHei", sans-serif;
+    color:#e6c27a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.status-box{
+    width:600px;
+    background:rgba(10,25,50,0.85);
+    padding:50px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 0 40px rgba(0,0,0,0.5);
+}
+
+h1{
+    font-size:20px;
+    letter-spacing:2px;
+    margin-bottom:30px;
+}
+
+.status-line{
+    margin:15px 0;
+    font-size:15px;
+}
+
+.status-highlight{
+    color:gold;
+    font-weight:bold;
+}
+
+button{
+    margin-top:40px;
+    padding:12px 30px;
+    background:gold;
+    border:none;
+    color:#0c1e3a;
+    font-size:14px;
+    border-radius:6px;
+    cursor:pointer;
+    display:none;
+}
+
+button:hover{
+    opacity:0.85;
+}
+</style>
+</head>
+
+<body>
+
+<div class="status-box">
+
+    <h1>数字档案已提交</h1>
+
+    <div class="status-line">
+        ✔ 档案编号：<span id="archiveID"></span>
+    </div>
+
+    <div class="status-line">
+        ✔ 系统已接收资料
+    </div>
+
+    <div class="status-line status-highlight" id="reviewStatus">
+        正在进入数字档案审核流程…
+    </div>
+
+    <button id="enterBtn" onclick="goVideo()">
+        进入入志仪式
+    </button>
+
+</div>
+
+<script>
+
+// ===== 自动生成档案编号 =====
+const now = new Date()
+const id =
+    "HP" +
+    now.getFullYear() +
+    String(now.getMonth()+1).padStart(2,'0') +
+    String(now.getDate()).padStart(2,'0') +
+    Math.floor(Math.random()*900+100)
+
+document.getElementById("archiveID").innerText = id
+localStorage.setItem("archive_id", id)
+
+// ===== 3秒模拟审核 =====
+setTimeout(function(){
+    document.getElementById("reviewStatus").innerText =
+        "审核通过 ✔"
+    document.getElementById("enterBtn").style.display = "inline-block"
+},3000)
+
+// ===== 进入视频 =====
+function goVideo(){
+    window.location.href = "submitting.html"
+}
+
+</script>
+
+</body>
+</html>

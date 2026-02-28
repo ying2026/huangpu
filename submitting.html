@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字入志仪式</title>
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.loading-text{
+    position:absolute;
+    bottom:8%;
+    width:100%;
+    text-align:center;
+    color:#e6c27a;
+    font-size:16px;
+    letter-spacing:2px;
+}
+</style>
+</head>
+
+<body>
+
+<video id="introVideo" autoplay muted playsinline></video>
+
+<div class="loading-text">
+    档案正在数字入志中…
+</div>
+
+<script>
+
+// ===== 判断版本 =====
+const region = localStorage.getItem("region") || "CN"
+const isTW = region === "TW"
+
+const video = document.getElementById("introVideo")
+
+video.src = isTW ? "video/video-tw.mp4" : "video/video-cn.mp4"
+
+// ===== 视频播放完跳转证书 =====
+video.onended = function(){
+    window.location.href = "certificate.html"
+}
+
+</script>
+
+</body>
+</html>

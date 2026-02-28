@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>荣誉档案展示</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="archive-body">
+
+<div class="archive-wrapper">
+
+    <div class="archive-header">
+        <h1>电子荣誉档案</h1>
+    </div>
+
+    <div class="preview-card">
+
+        <div class="preview-photo" id="previewPhoto"></div>
+
+        <div class="preview-info">
+            <p><strong>姓名：</strong><span id="pName"></span></p >
+            <p><strong>期别：</strong><span id="pPeriod"></span></p >
+            <p><strong>兵种：</strong><span id="pArm"></span></p >
+            <p><strong>先辈后人：</strong><span id="pDesc"></span></p >
+            <p><strong>电子编号：</strong><span id="pID"></span></p >
+        </div>
+
+    </div>
+
+    <div class="submit-area">
+        <img src="images/submit-btn.png"
+             class="submit-img-btn"
+             onclick="goHome()">
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById("pName").innerText = localStorage.getItem("archive_name")
+document.getElementById("pPeriod").innerText = localStorage.getItem("archive_period")
+document.getElementById("pArm").innerText = localStorage.getItem("archive_arm")
+document.getElementById("pDesc").innerText = localStorage.getItem("archive_descendant")
+document.getElementById("pID").innerText = localStorage.getItem("archive_id")
+
+const photo = localStorage.getItem("archive_photo")
+if(photo){
+    document.getElementById("previewPhoto").style.backgroundImage = photo
+    document.getElementById("previewPhoto").style.backgroundSize = "cover"
+    document.getElementById("previewPhoto").style.backgroundPosition = "center"
+}
+
+function goHome(){
+    window.location.href = "index.html"
+}
+
+</script>
+
+</body>
+</html>

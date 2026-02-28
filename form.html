@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+<title>荣誉档案填写</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="archive-body from-page">
+
+<script>
+// ===== 未登录拦截 =====
+if(!localStorage.getItem("isLogin")){
+    window.location.href = "index.html"
+}
+</script>
+
+<!-- 顶部导航 -->
+<div class="top-nav from-top-nav">
+    <a href="index.html " class="back-link">← 返回首页</a >
+</div>
+
+<div class="archive-wrapper">
+
+    <div class="archive-header">
+        <img id="topLogo" class="top-logo">
+        <h1 id="mainTitle"></h1>
+    </div>
+
+    <!-- 表单 -->
+    <form class="archive-form" id="archiveForm">
+
+        <div class="form-row">
+            <label>姓名</label>
+            <input type="text" id="name">
+        </div>
+
+        <div class="form-row">
+            <label id="label-period"></label>
+            <select id="periodSelect"></select>
+        </div>
+
+        <div class="form-row">
+            <label id="label-arm"></label>
+            <select id="armSelect"></select>
+        </div>
+
+        <div class="form-row">
+            <label>先辈后人</label>
+            <input type="text" id="descendant">
+        </div>
+        <div class="form-row">          
+            <label>戎装照片</label>
+            <div class="photo-area">
+                <input type="file" id="photoInput" accept="image/*" hidden>
+
+                <img src="images/upload-btn.png"
+                     class="upload-img-btn"
+                     onclick="triggerUpload()">
+
+                <div class="photo-preview" id="previewBox">
+                    未开片
+                </div>
+            </div>
+        </div>
+<div class="form-row">
+    <label>寄语</label>
+    <textarea id="message" rows="3" placeholder="请输入寄语 / 祖训"></textarea>
+</div>
+<div class="submit-area">
+    <button type="submit" class="submit-btn">
+        <img src="images/submit-btn.png" class="submit-img-btn">
+    </button>
+</div> 
+</form>
+
+</div>
+
+<script>
+
+// ===== 双版本逻辑 =====
+const region = localStorage.getItem("region") || "CN"
+const isTW = region === "TW"
+
+document.getElementById("topLogo").src =
+    isTW ? "images/logo-tw.png" : "images/logo-cn.png"
+
+document.getElementById("mainTitle").innerText =
+    isTW
+    ? "黃埔薪火・兩岸數字榮譽檔案"
+    : "黄埔薪火・两岸数字荣誉档案"
+
+document.getElementById("label-period").innerText =
+    isTW ? "期別" : "期别"
+
+document.getElementById("label-arm").innerText =
+    isTW ? "兵種" : "兵种"
+
+
+// ===== 期别生成 =====
+// ===== 阿拉伯数字转中文 =====
+function numberToChinese(num){
+    const chineseNums = [
+        "零","一","二","三","四","五","六","七","八","九"
+    ]
+
+    if(num < 10){
+        return chineseNums[num]
+    }
+
+    if(num < 100){
+        if(num === 10) return "十"
+        if(num < 20) return "十" + chineseNums[num % 10]
+        return chineseNums[Math.floor(num/10)] + "十" + 
+               (num%10===0 ? "" : chineseNums[num%10])
+    }
+
+    return num
+}
+
+
+// ===== 期别生成 =====
+const periodSelect = document.getElementById("periodSelect")
+
+if(isTW){
+    periodSelect.innerHTML = `<option value="">請選擇期別</option>`
+    for(let i = 1; i <= 100; i++){
+        const chinese = numberToChinese(i)
+        periodSelect.innerHTML += 
+        `<option value="第${chinese}期">第${chinese}期</option>`
+    }
+}else{
+    periodSelect.innerHTML = `<option value="">请选择期别</option>`
+    for(let i = 1; i <= 23; i++){
+        const chinese = numberToChinese(i)
+        periodSelect.innerHTML += 
+        `<option value="第${chinese}期">第${chinese}期</option>`
+    }
+}
+// ===== 兵种生成 =====
+const armSelect = document.getElementById("armSelect")
+
+if(isTW){
+    const twArms = [
+        "陸軍步兵科","陸軍炮兵科","陸軍裝甲兵科","陸軍化學兵科",
+        "陸軍工兵科","陸軍通信兵科","陸軍航空兵科","陸軍兵工科",
+        "海軍航海科","海軍輪機科","海軍通信科","海軍武器系統科",
+        "海軍補給科","海軍其他科","空軍飛行組","空軍地勤組"
+    ]
+    armSelect.innerHTML = `<option value="">請選擇兵種</option>`
+    twArms.forEach(item=>{
+        armSelect.innerHTML += `<option value="${item}">${item}</option>`
+    })
+}else{
+    const cnArms = [
+        "步兵","炮兵","工兵","辎重",
+        "宪兵","骑兵","政治","经理"
+    ]
+    armSelect.innerHTML = `<option value="">请选择兵种</option>`
+    cnArms.forEach(item=>{
+        armSelect.innerHTML += `<option value="${item}">${item}</option>`
+    })
+}
+
+
+// ===== 上传照片 =====
+let photoBase64 = ""
+
+function triggerUpload(){
+    document.getElementById("photoInput").click()
+}
+
+document.getElementById("photoInput").addEventListener("change", function(e){
+    const file = e.target.files[0]
+    if(!file) return
+
+    const reader = new FileReader()
+    reader.onload = function(event){
+
+        photoBase64 = event.target.result
+
+        const preview = document.getElementById("previewBox")
+        preview.innerHTML = ""
+        preview.style.backgroundImage = `url(${photoBase64})`
+        preview.style.backgroundSize = "cover"
+        preview.style.backgroundPosition = "center"
+    }
+    reader.readAsDataURL(file)
+})
+
+
+// ===== 提交逻辑（核心修复点）=====
+document.getElementById("archiveForm").addEventListener("submit", function(e){
+
+    e.preventDefault();  // 阻止默认刷新
+
+    const name = document.getElementById("name").value
+    const period = document.getElementById("periodSelect").value
+    const arm = document.getElementById("armSelect").value
+    const descendant = document.getElementById("descendant").value
+    const message = document.getElementById("message").value
+    if(!name || !period || !arm){
+        alert("请填写完整信息")
+        return
+    }
+
+    localStorage.setItem("archive_name", name)
+    localStorage.setItem("archive_period", period)
+    localStorage.setItem("archive_arm", arm)
+    localStorage.setItem("archive_descendant", descendant)
+    localStorage.setItem("archive_photo", photoBase64)
+    localStorage.setItem("archive_message",message)
+    // 生成编号
+    const id = "HP-" + Date.now()
+    localStorage.setItem("archive_id", id)
+
+    // 跳转状态页
+    window.location.href = "status.html"
+
+})
+
+</script>
+
+</body>
+</html>

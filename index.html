@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover，maximum-scale=1.0, user-scalable=no">
+    <title>黄埔薪火 · 两岸数字荣誉档案</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="cover-page">
+
+<!-- ===== 顶部导航 ===== -->
+<div class="top-nav">
+    <div class="nav-links">
+        <a href=" ">登录</a >
+        <a href="register.html" class="nav-btn">注册</a >
+    </div>
+</div>
+
+<!-- ===== 封面区域 ===== -->
+<div class="cover-container">
+
+    <!-- 背景图 -->
+    <img src="images/cover.jpg" class="cover-bg">
+
+    <!-- 版本选择按钮 -->
+    <div class="cover-buttons">
+        <img src="images/btn-cn.png" class="btn-img" onclick="login('CN')">
+        <img src="images/btn-tw.png" class="btn-img" onclick="login('TW')">
+    </div>
+
+</div>
+
+
+<!-- ===== 脚本区域 ===== -->
+<script>
+function login(region){
+
+    console.log("选择版本:", region)
+
+    // 保存版本
+    localStorage.setItem("region", region)
+
+    // 设置登录状态
+    localStorage.setItem("isLogin", "true")
+
+    // 跳转填写页
+    window.location.href = "form.html"
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+</head>
+<body>
+
+<h2>欢迎进入后台管理系统</h2>
+
+<button onclick="loadUsers()">查看所有用户</button>
+
+<ul id="userList"></ul>
+<script>
+
+// 页面加载时检查是否登录
+if (!localStorage.getItem('userRole')) {
+    alert('请先登录')
+    window.location.href = 'login.html'
+}
+
+function loadUsers() {
+    const token = localStorage.getItem('token')
+
+    fetch('/users', {
+        headers: {
+            'Authorization': token
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const list = document.getElementById('userList')
+        list.innerHTML = ''
+        data.forEach(user => {
+            const li = document.createElement('li')
+            li.innerText = user.username + ' - ' + user.role
+            list.appendChild(li)
+        })
+    })
+}
+</script>
+
+</body>
+</html>

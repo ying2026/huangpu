@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>荣誉证书</title>
+
+<!-- 书法字体 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    background:#0c1e3a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* 固定比例画布 */
+.poster{
+    width:450px;
+    height:800px;
+    position:relative;
+    background-size:cover;
+    background-position:center;
+}
+
+/* ===== 头像 ===== */
+.avatar{
+    position:absolute;
+    top:335.5px;
+    left:36.5px;
+    width:100px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:0px solid #e6c27a;
+}
+
+/* ===== 姓名（书法）===== */
+.name{
+    text-shadow: 0 0 4px rgba(230,194,122,0.5);
+    position:absolute;
+    top:335px;
+    width:100%;
+    text-align:center;
+    font-size:45px;
+    letter-spacing:5px;
+    color:#e4dabf;
+    font-family: 'Noto Sans TC', serif;
+    font-weight:700;
+    letter-spacing:6px;
+    left:7px;
+}
+
+/* ===== 期别 ===== */
+.period{
+    position:absolute;
+    top:410px;
+    width:100%;
+    text-align:center;
+    font-size:16px;
+    color:#ffffff;
+}
+/* ===== 兵种 ===== */
+.arm{
+    position:absolute;
+    top:440px;
+    width:100%;
+    text-align:center;
+    font-size:16px;
+    color:#ffffff;
+}
+/* ===== 先辈后人 ===== */
+.descendant{
+    position:absolute;
+    top:475px;
+    width:100%;
+    text-align:center;
+}
+
+.descendant span{
+    display:inline-block;
+    padding:5px 0px;      /* 控制线条长度 */
+
+    border-top:1px solid #ffffff;
+    border-bottom:1px solid #ffffff;
+
+    font-size:14px;
+    color:#ffffff;
+    letter-spacing:0px;
+}
+
+/* ===== 自动编号 ===== */
+.serial{
+    position:absolute;
+    top:395px;
+    right:42px;
+    font-size:9px;
+    color:#000000;
+}
+/* ===== 寄语 ===== */
+.message {
+    position:absolute;     
+    top: 640px;
+    width: 100%;
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+    color: #ffffff;
+}
+/* ===== 日期 ===== */
+.date{
+    position:absolute;
+    top:755px;
+    bottom:135px;
+    width:100%;
+    text-align:center;
+    font-size:12px;
+    color:#ffffff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="poster" id="poster">
+    <img class="avatar" id="avatar">
+    <div class="name" id="certName"></div>
+    <div class="period" id="certPeriod"></div>
+    <div class="arm" id="certArm"></div>
+    <div class="descendant"><span id="certDescendant"></sapn></div>
+    <div class="message" id="certMessage"></div>
+    <div class="serial" id="certSerial"></div>
+    <div class="date" id="certDate"></div>
+
+</div>
+
+<script>
+
+// ===== 版本切换 =====
+const region = localStorage.getItem("region") || "CN"
+const isTW = region === "TW"
+
+const poster = document.getElementById("poster")
+poster.style.backgroundImage =
+    isTW
+    ? "url('images/cert-tw.png')"
+    : "url('images/cert-cn.png')"
+
+// ===== 填充文字 =====
+document.getElementById("certName").innerText =
+    localStorage.getItem("archive_name") || "张三"
+
+document.getElementById("certPeriod").innerText =
+    localStorage.getItem("archive_period") || "第十八期"
+
+document.getElementById("certArm").innerText =
+    localStorage.getItem("archive_arm") || "炮兵"
+
+const descendantName = localStorage.getItem("archive_descendant") || ""
+
+if(descendantName){
+    document.getElementById("certDescendant").innerText =
+        "先辈后人 · " + descendantName
+}else{
+    document.getElementById("certDescendant").innerText = ""
+}
+
+document.getElementById("certMessage").innerText =
+    localStorage.getItem("archive_message") || ""
+// ===== 头像读取 =====
+const avatarData = localStorage.getItem("archive_photo")
+if(avatarData){
+    document.getElementById("avatar").src = avatarData
+}else{
+    document.getElementById("avatar").style.display = "none"
+}
+
+// ===== 自动编号生成 =====
+function generateSerial(){
+    const year = new Date().getFullYear()
+    const random = Math.floor(100 + Math.random()*900)
+    return `HP-${year}-${region}-${random}`
+}
+document.getElementById("certSerial").innerText = generateSerial()
+
+// ===== 自动日期 =====
+const today = new Date()
+const year = today.getFullYear()
+const month = today.getMonth()+1
+const day = today.getDate()
+
+document.getElementById("certDate").innerText =
+    isTW
+    ? `中華民國 ${year-1911} 年 ${month} 月 ${day} 日`
+    : `${year} 年 ${month} 月 ${day} 日`
+
+</script>
+
+</body>
+</html>
