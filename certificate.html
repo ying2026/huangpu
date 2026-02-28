@@ -16,15 +16,13 @@ body{
     background:#0c1e3a;
     display:flex;
     justify-content:center;
-    align-items:center;
-    height:100vh;
 }
 
 /* 固定比例画布 */
 .poster{
     width:100%;
-max-width:450px;
-    height:800px;
+    max-width:450px;
+    aspect-ratio:450/800;
     position:relative;
     background-size:cover;
     background-position:center;
@@ -209,3 +207,4 @@ document.getElementById("certDate").innerText =
 
 </body>
 </html>
+
