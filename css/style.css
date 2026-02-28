@@ -9,7 +9,7 @@
         }
 
         input, select, textarea {
-            width: 75%;
+            width: 80%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 6px;
@@ -213,7 +213,7 @@
 
 .archive-wrapper {
     max-width: none;
-    width: 90%;
+    width: 80%;
     min-height: 100vh; /* 确保高度至少占满视口 */
     margin: 0;
     mairgin-top:50px;
@@ -357,6 +357,7 @@
     color:#e4dabf;
     font-size:22px;
 }
+
 
 
 
