@@ -213,12 +213,12 @@
 
 .archive-wrapper {
     max-width: none;
-    width: 80%;
+    width: 100%;
     min-height: 100vh; /* 确保高度至少占满视口 */
     margin: 0;
     mairgin-top:50px;
     padding: 40px; /* 保留内边距，避免内容贴边 */
-    background: rgba(10, 25, 50, 0.75);
+    background: rgba(0, 0, 0, 0);
     border-radius: 0; /* 移除圆角，与页面融合 */
     box-shadow: none; /* 移除阴影，消除边界感 */
     box-sizing: border-box;
@@ -357,6 +357,7 @@
     color:#e4dabf;
     font-size:22px;
 }
+
 
 
 
