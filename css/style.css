@@ -154,7 +154,7 @@
 
         /* 表单容器：解决边框显示+内容完整 */
         .form-container {
-            width: 90%;
+            width: 80%;
             max-width: 500px;
             /* 背景改为实色，避免半透遮挡边框 */
             background: #fff;
@@ -357,4 +357,5 @@
     color:#e4dabf;
     font-size:22px;
 }
+
 
