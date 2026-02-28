@@ -22,13 +22,18 @@ body{
 
 /* 固定比例画布 */
 .poster{
-    width:450px;
+    width:100%;
+max-width:450px;
     height:800px;
     position:relative;
     background-size:cover;
     background-position:center;
 }
-
+.poster::before{
+    content:"";
+    display:block;
+    padding-top:177.78%; /* 800 ÷ 450 = 1.7778 */
+}
 /* ===== 头像 ===== */
 .avatar{
     position:absolute;
@@ -133,7 +138,7 @@ body{
     <div class="name" id="certName"></div>
     <div class="period" id="certPeriod"></div>
     <div class="arm" id="certArm"></div>
-    <div class="descendant"><span id="certDescendant"></sapn></div>
+    <div class="descendant"><span id="certDescendant"></span></div>
     <div class="message" id="certMessage"></div>
     <div class="serial" id="certSerial"></div>
     <div class="date" id="certDate"></div>
