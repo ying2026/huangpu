@@ -213,7 +213,7 @@
 
 .archive-wrapper {
     max-width: none;
-    width: 100%;
+    width: 90%;
     min-height: 100vh; /* 确保高度至少占满视口 */
     margin: 0;
     mairgin-top:50px;
@@ -357,3 +357,4 @@
     color:#e4dabf;
     font-size:22px;
 }
+
