@@ -212,12 +212,16 @@
 /* ===== 表单外框 ===== */
 
 .archive-wrapper {
-    max-width: 680px;
-    margin: 100px auto 80px auto;
-    padding: 40px 50px;
+    max-width: none;
+    width: 100%;
+    min-height: 100vh; /* 确保高度至少占满视口 */
+    margin: 0;
+    mairgin-top:50px;
+    padding: 40px; /* 保留内边距，避免内容贴边 */
     background: rgba(10, 25, 50, 0.75);
-    border-radius: 12px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    border-radius: 0; /* 移除圆角，与页面融合 */
+    box-shadow: none; /* 移除阴影，消除边界感 */
+    box-sizing: border-box;
 }
 
 /* ===== 表单顶部 ===== */
